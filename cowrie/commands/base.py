@@ -407,14 +407,12 @@ class command_reboot(HoneyPotCommand):
 
     def finish(self):
         """
+        Here maybe repair a bug:reboot is just like exit command.
         """
-        self.write('Connection to server closed.\n')
-        self.protocol.hostname = 'localhost'
-        self.protocol.cwd = '/root'
-        if not self.fs.exists(self.protocol.cwd):
-            self.protocol.cwd = '/'
-        self.protocol.uptime(time.time())
-        self.exit()
+        stat = failure.Failure(error.ProcessDone(status=""))
+        self.protocol.terminal.transport.processEnded(stat)
+        return
+
 commands['/sbin/reboot'] = command_reboot
 
 
