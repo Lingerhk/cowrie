@@ -2,7 +2,8 @@
 
 ##Noite:
 
-From https://github.com/micheloosterhof/cowrie/blob/master/README.md and http://www.micheloosterhof.com/cowrie/.
+From https://github.com/micheloosterhof/cowrie/blob/master/README.md.
+For more details information see: http://www.micheloosterhof.com/cowrie/.
 
 Cowrie 是一个中度交互式的SSH蜜罐系统，它旨在通过攻击者的shell交互，进行log采集与安全分析。
 [Cowrie](http://github.com/micheloosterhof/cowrie/) 由Michel Oosterhof开发，并且基于Upi Tamminen的[Kippo](http://github.com/desaster/kippo/)蜜罐原型改进。
@@ -20,7 +21,7 @@ Cowrie 是一个中度交互式的SSH蜜罐系统，它旨在通过攻击者的s
 
 * 支持SFTP和SCP命令文件上传
 * 支持SSH命令执行，如:ssh user@ip 'ls'
-* 可记录对ssh的tcp连接尝试(ssh proxying)
+* 可记录SSH代理连接的tcp/ip连接记录
 * 支持重定向SMTP连接到指定的SMTP蜜罐服务器Honeypot(e.g. [mailoney](https://github.com/awhitehatter/mailoney))
 * 日志记录支持JSON格式，便于一些日志分析管理工具处理分析(e.g. 开源的ELK日志分析套件)
 * 添加了许多新命令的支持
