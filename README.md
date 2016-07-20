@@ -1,28 +1,31 @@
 # Cowrie
 
-Cowrie is a medium interaction SSH honeypot designed to log brute force attacks and the shell interaction performed by the attacker.
+##Noite:
 
-[Cowrie](http://github.com/micheloosterhof/cowrie/) is developed by Michel Oosterhof and is based on [Kippo](http://github.com/desaster/kippo/) by Upi Tamminen (desaster).
+From https://github.com/micheloosterhof/cowrie/blob/master/README.md and http://www.micheloosterhof.com/cowrie/.
 
-## Features
+Cowrie 是一个中度交互式的SSH蜜罐系统，它旨在通过攻击者的shell交互，进行log采集与安全分析。
+[Cowrie](http://github.com/micheloosterhof/cowrie/) 由Michel Oosterhof开发，并且基于Upi Tamminen的[Kippo](http://github.com/desaster/kippo/)蜜罐原型改进。
 
-Some interesting features:
+## Cowrie特点
 
-* Fake filesystem with the ability to add/remove files. A full fake filesystem resembling a Debian 5.0 installation is included
-* Possibility of adding fake file contents so the attacker can `cat` files such as `/etc/passwd`. Only minimal file contents are included
-* Session logs stored in an [UML Compatible](http://user-mode-linux.sourceforge.net/)  format for easy replay with original timings
-* Cowrie saves files downloaded with wget/curl or uploaded with SFTP and scp for later inspection
+一些有趣的特点：
 
-Additional functionality over standard kippo:
+* 该虚拟文件系统能够增加／移动文件。一个完备的虚拟文件系统颇似Debian 5.0的完整版。
+* 可以添加虚拟文件中的内容，让攻击者通过'cat'命令显示，例如'/etc/passwd'文件。
+* Session日志存储在于[UML Compatible](http://user-mode-linux.sourceforge.net/) 的兼容格式（二进制／JSON），并且很容易基于原始时间戳回放。回放shell真是交互过程。
+* Cowrie可以顺便下载攻击这通过wget/curl或者通过sftp/scp上传的文件，以便后期分析。
 
-* SFTP and SCP support for file upload
-* Support for SSH exec commands
-* Logging of direct-tcp connection attempts (ssh proxying)
-* Forward SMTP connections to SMTP Honeypot (e.g. [mailoney](https://github.com/awhitehatter/mailoney))
-* Logging in JSON format for easy processing in log management solutions
-* Many, many additional commands
+基于kippo添加的新功能:
 
-## Requirements
+* 支持SFTP和SCP命令文件上传
+* 支持SSH命令执行，如:ssh user@ip 'ls'
+* 可记录对ssh的tcp连接尝试(ssh proxying)
+* 支持重定向SMTP连接到指定的SMTP蜜罐服务器Honeypot(e.g. [mailoney](https://github.com/awhitehatter/mailoney))
+* 日志记录支持JSON格式，便于一些日志分析管理工具处理分析(e.g. 开源的ELK日志分析套件)
+* 添加了许多新命令的支持
+
+## 第三方包依赖
 
 Software required:
 
@@ -36,19 +39,19 @@ Software required:
 * python-mysqldb (for MySQL output)
 * python-OpenSSL
 
-## Files of interest:
+## Cowrie文件结构:
 
-* `cowrie.cfg` - Cowrie's configuration file. Default values can be found in `cowrie.cfg.dist`
-* `data/fs.pickle` - fake filesystem
-* `data/userdb.txt` - credentials allowed or disallowed to access the honeypot
-* `dl/` - files transferred from the attacker to the honeypot are stored here
-* `honeyfs/` - file contents for the fake filesystem - feel free to copy a real system here or use `bin/fsctl`
-* `log/cowrie.json` - transaction output in JSON format
-* `log/cowrie.log` - log/debug output
-* `log/tty/*.log` - session logs
-* `txtcmds/` - file contents for the fake commands
-* `bin/createfs` - used to create the fake filesystem
-* `bin/playlog` - utility to replay session logs
+* `cowrie.cfg` - Cowrie的配置文件，默认原始文件是`cowrie.cfg.dist`
+* `data/fs.pickle` - 虚拟文件系统
+* `data/userdb.txt` - ssh登录凭证（采用黑／白名单方式，灵活配置）
+* `dl/` - 攻击者在蜜罐中传输的文件存储在此
+* `honeyfs/` - 虚拟文件系统的文件内容（可以将真实系统中的文件copy到此或者使用`bin/fsctl`创建文件）
+* `log/cowrie.json` - 输出的JSON格式的日志
+* `log/cowrie.log` - log/debug输出
+* `log/tty/*.log` - session会话日志
+* `txtcmds/` - 虚拟命令时回显的文件内容
+* `bin/createfs` - 使用此命令在虚拟文件系统中创建文件
+* `bin/playlog` - 很实用的一个回话日志回放的工具
 
 ## Is it secure?
 
